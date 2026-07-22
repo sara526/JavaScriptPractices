@@ -56,22 +56,20 @@ greet() {}
 is equivalent to
 
 greet: function() {}
+
 ## Nested Objects
 
 Objects can contain other objects.
 
 Example: profile.address.city
+
 ## this Keyword
 
-Inside an object method,
-
-this
-
-refers to the object that called the method.
+Inside an object method, `this` refers to the object that called the method.
 
 ## for...in
 
-Loops through the property names (keys) of an object.
+Loops through the enumerable property names (keys) of an object.
 
 ## Object.keys()
 
@@ -90,7 +88,7 @@ checks whether a property exists in an object. "name" in profile
 
 10 === 10          // true
 
-## Objects are assigned by reference
+## Comparing Objects
 
 const a = { x: 1 };
 const b = a;
@@ -111,3 +109,75 @@ delete obj.name;
 
 ❌ Not Allowed:
 obj = {};
+
+## Static Methods
+
+Static methods belong to the Object constructor, not to object instances.
+
+Examples:
+- Object.keys()
+- Object.values()
+- Object.entries()
+- Object.assign()
+- Object.freeze()
+- Object.seal()
+
+## Object.assign()
+
+Copies enumerable properties from one or more source objects to a target object.
+
+Object.assign(target, source)
+
+⚠️ It performs a `shallow copy.`
+
+## Shallow Copy
+
+Primitive values are copied by value.
+
+Nested objects are copied by reference.
+⚠️ Changes to nested objects affect both copies.
+
+## Deep Copy
+
+Creates a completely independent copy of an object.
+
+Changes to nested objects do not affect the original object.
+
+## Object.assign()
+
+Copies properties from source object(s) to a target object.
+
+Object.assign(target, source)
+
+- Existing properties are overwritten.
+- New properties are added.
+- Creates a shallow copy.
+
+## structuredClone()
+
+Creates a deep copy.
+
+Nested objects are copied independently, so changes do not affect the original object.
+
+## Object.isFrozen()
+
+Returns `true` if an object is frozen; otherwise returns `false`.
+
+## Object.freeze()
+
+Freezes an object. 
+
+After freezing an object, you cannot:
+- Modify existing properties.
+- Add new properties.
+- Delete properties.
+
+Use `Object.isFrozen()` to check if an object is frozen.
+
+## Summary
+
+- Objects are reference types.
+- Primitive values are copied by value.
+- Objects are copied by reference unless a deep copy is created.
+- `Object.assign()` creates a shallow copy.
+- `structuredClone()` creates a deep copy.

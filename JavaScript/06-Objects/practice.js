@@ -13,7 +13,7 @@ Topics:
 - Reference vs Value
 - Execution Context
 */
-//⭐⭐⭐⭐⭐
+
 const user = {
     name: "Sara",
     age: 31,
@@ -50,8 +50,8 @@ console.log(user[someKey]);
 
 //--- ⭐ Constructor Function -------
 function Car(name, model) {
-    this.name= name;
-    this.model= model
+     this.name= name;
+     this.model= model
 }
 const bmwCar = new Car("BMW", "X1");
 const audiCar = new Car("Audi", "A8");
@@ -65,17 +65,17 @@ const mazdaCar = {
 console.log(mazdaCar instanceof Car); //false
 
 // --- Old Syntax ---------- 
-const person = new Object()
+const person = new Object();
     person.name = "Lina";
     person.age = 33;
     console.log(person);
 
-//--- ⭐ Factory Function ⭐ ----
+// ----- ⭐ Factory Function ⭐ ------
 function createUser(name, age){
     return {
-        name,          //⭐Property Shorthand (ES6)
+        name,          // ⭐Property Shorthand (ES6)
         age,
-        greet(){       //⭐Method Shorthand (ES6)
+        greet(){       // ⭐Method Shorthand (ES6)
             console.log(`Hi my name is ${this.name}`)
         }
     }
@@ -87,13 +87,13 @@ const user2 = createUser("Mohammed", 40)
 console.log(user2);
 user2.greet();
 
-let profile = {
+const profile = {
     name: "Sara",
     company: "CreoWis",
     message: function() {
         console.log(`${this.name} works at ${this.company}`)
     },
-    //Nested Objects
+    //Nested Object
     address: {
         city: "Nasr City",
         pin: 46032,
@@ -121,11 +121,10 @@ console.log(student.city); // undefined
 // console.log(student.city.country); // TypeError
 profile.message();
 
-// Object Reference
+// ----- Object Reference ---------
 const a = { value: 10 };
 const b = a;
 console.log(a === b);
-
 console.log("Inside Global Execution Context");
 
 let z = 5;
@@ -137,13 +136,10 @@ function testMe() {
         country: "India"
     };
     function testAgain() {
-
         console.log("Inside testAgain Execution Context");
-
         console.log("Exiting testAgain Execution Context");
     }
     testAgain();
-
     console.log("Exiting testMe Execution Context");
 }
 testMe();
@@ -151,9 +147,96 @@ console.log("Exiting Global Execution Context");
 
 let fruit = { name: "mango"}; // XA01
 const oneMoreFruit = { name: "mango"}; // YB02
-
 console.log(fruit == oneMoreFruit); // false
 console.log(fruit === oneMoreFruit); // false
-fruit = oneMoreFruit;
+
+fruit = oneMoreFruit;  // Both variables now reference the same object.
 console.log(fruit == oneMoreFruit); // true
 console.log(fruit === oneMoreFruit); // true
+
+// ------ Static Methods -------
+const target = {a:10 , c:11};
+const source = {b:12, d:14};
+
+const result = Object.assign(target,source);
+console.log(result); // {a:10, c:11, b:12, d:14}
+console.log(target === source); //false
+console.log(target === result); // true 
+
+// Existing properties are overwritten.
+// New properties are added.
+const target2 = {d:10 , c:11}; 
+const source2 = {b:12, d:14};
+console.log(Object.assign(target2,source2));
+
+// Object.assign() creates a shallow copy
+// Primitive values are copied by value
+// Nested objects are copied by reference
+const obj1 = {name: "SaraMohammed"};
+const obj2 = Object.assign({grade:97}, obj1);
+console.log(obj2);
+console.log(obj1 === obj2); //false
+const obj3 = {
+    a: 30,    //Primitive value
+    c: {b:5}  //Nested object
+}
+// Shallow copy:
+// 'a' is copied by value
+// 'c' shares the same reference
+const obj4= Object.assign({},obj3);
+console.log(obj4);
+
+obj4.a = 50;
+console.log(obj4.a); // 50
+console.log(obj3.a); // 30
+console.log(obj4.c.b); // 5
+console.log(obj3.c.b); // 5
+console.log(obj3.c === obj4.c); //true 
+
+obj4.c.b = 170;
+console.log(obj4.c.b); // 170 (same nested object)
+console.log(obj3.c.b); // 170 (shared reference)
+
+const obj5 = structuredClone(obj3);
+// Deep copy:
+// Creates a completely independent copy
+obj5.a = 300;
+obj5.c.b = 15;
+console.log(obj5); 
+console.log(obj5.c.b); // 15
+console.log(obj3.c.b); // 170 (original object is unchanged)
+
+// -------- Object.entries() --------
+const myObj ={
+    a: "Sara",
+    b: 30
+};
+const myArr = Object.entries(myObj);
+console.log(myArr); //Returns an array of [key, value] pairs
+const entries = new Map ([
+    ["foo", "mars"],
+    ["baz", 22]
+]);
+const objEntries = Object.fromEntries(entries); // Converts [key, value] pairs back into an object.
+console.log(objEntries); 
+
+// ------- Object.freeze() --------
+const emp = {sub: "JavaScript"};
+Object.freeze(emp); // Frozen objects cannot be modified, extended or have properties deleted.
+emp.sub = "OOP";
+emp.sal = 1000; 
+console.log(emp.sub); // undefined
+delete emp.sal;
+console.log(Object.isFrozen(emp)); //true
+
+// --------- Object.seal() ---------
+const dept = {
+    name: "foo"
+}
+Object.seal(dept);
+dept.address = "Nasr City";  // new properties cannot be added
+delete dept.name;  // existing properties cannot be deleted.
+dept.name = "HR";  // existing properties can be modified
+console.log(dept.name); // HR
+console.log(Object.hasOwn(dept,"name")); // true
+console.log(Object.hasOwn(dept,"address")); // false
