@@ -1,3 +1,11 @@
+# Interview Tip
+
+**Q:** What's the difference between a regular function and an arrow function regarding `this`?
+
+**A:**
+- Regular functions have their own `this`, determined by how they're called.
+- Arrow functions don't have their own `this`; they inherit it from the surrounding scope.
+
 ## this Keyword
 
 - `this` depends on how a function is called.
