@@ -20,7 +20,7 @@ const result1 = sum(20, 9);
 console.log(result1); // 29
 
 function double(x) {
-    return 2*x;
+    return 2 * x;
 }
 console.log(double(result1)); // 58
 
@@ -51,9 +51,15 @@ function outer() {
         console.log("Inner");
     }
 }
-outer();
 const returnFunc = outer(); 
 console.log(returnFunc());   // undefined
+
+// Arrow Function
+
+let arrowFunc = (msg) => {
+    return msg + " ES6";
+}
+console.log(arrowFunc("Arrow function"));
 
 //Function Declaration Hoisting
 
@@ -69,17 +75,19 @@ const sayHello = function () {
 };*/
 
 // callback function
-const toCallBuz  = false;
+const toCallBuz  = true;
 function foo(func) {
-    console.log("Sara");
+    console.log("CallBack");
     if (toCallBuz){
         func();
     }
 }
 const buz = function() {
-    console.log("Mohammed")
+    console.log("Function")
 }
 foo(buz);
+
+// Higher-Order Function (HOF)
 function teacher(homework) {
     console.log("Listen carefully...");
 
@@ -91,5 +99,26 @@ function teacher(homework) {
 function student() {
     console.log("I am doing my homework.");
 }
+teacher(student);  //teacher = HOF, student = callback
 
-teacher(student);
+// IIFE(Immediately Invoked Function Expression)
+(function (count) {
+    console.log("IIFE", count);
+})(1);
+
+
+// Recursion
+
+/*function foo() {
+    foo();
+}*/
+
+function fetchWater(count) {
+    console.log("Fetching Water...", count);
+    if (count === 0) {
+        console.log("No more water is left to fetch...");
+        return;
+    }
+    fetchWater(count - 1);
+}
+fetchWater(5);
