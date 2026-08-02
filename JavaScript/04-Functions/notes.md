@@ -266,3 +266,85 @@ countdown(3)
 
 - Same problem → Smaller problem.
 - No Base Case → Infinite recursion → Stack Overflow.
+
+## Call Stack Execution Diagram
+
+### Code
+
+```javascript
+function f1() {}
+function f2() {}
+function f3() {
+    f1();
+}
+
+f2();
+f3();
+f1();
+```
+
+### Execution Flow
+
+```text
+Call Stack
+----------
+(empty)
+----------
+
+↓
+
+Call Stack
+----------
+f2
+----------
+
+↓
+
+Call Stack
+----------
+(empty)
+----------
+
+↓
+
+Call Stack
+----------
+f3
+----------
+
+↓
+
+Call Stack
+----------
+f1
+f3
+----------
+
+↓
+
+Call Stack
+----------
+f3
+----------
+
+↓
+
+Call Stack
+----------
+(empty)
+----------
+
+↓
+
+Call Stack
+----------
+f1
+----------
+
+↓
+
+Call Stack
+----------
+(empty)
+----------
+```
