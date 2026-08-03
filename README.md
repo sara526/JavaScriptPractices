@@ -29,7 +29,7 @@ This repository contains:
 | Operators | ✅ |
 | Functions | ✅ |
 | Arrays | ✅ |
-| Objects | ⏳ |
+| Objects | ✅ |
 | DOM | ⬜ |
 | Asynchronous JavaScript | ⬜ |
 | ES Modules | ⬜ |
